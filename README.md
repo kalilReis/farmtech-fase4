@@ -113,7 +113,3 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
       ```bash
       pio device monitor
       ```
-
-## 📋 Licença
-
-Este projeto é uma aplicação embarcada para gerenciamento de dados de colheita de cana-de-açúcar, desenvolvida em C++ para microcontroladores, utilizando PlatformIO. A estrutura do projeto inclui pastas para assets, documentação, código-fonte e o arquivo README.md, que fornece instruções de instalação, execução e histórico de versões. A licença do projeto é Attribution 4.0 International, conforme detalhes no arquivo.
