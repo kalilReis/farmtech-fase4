@@ -42,13 +42,24 @@ O sistema simula:
 
 - **Sensor de Fósforo (P):** botão físico (pressionado = presença, solto = ausência)
 - **Sensor de Potássio (K):** botão físico (mesma lógica do fósforo)
-- **Sensor de pH:** sensor LDR (variação analógica simulando pH)
+- **Sensor de luminosidade (LDR):** sensor LDR (resistor dependente de luz, fornece valor analógico conforme a intensidade luminosa)
 - **Sensor de umidade do solo:** DHT22 (valor analógico em tempo real)
 - **Bomba de irrigação:** relé controlado pelo ESP32, com status indicado por LED
 
 **Lógica de irrigação:** Para que a água seja liberada (LED aceso), é necessário que a umidade do solo esteja abaixo de 40% e que exista fósforo ou potássio detectado (ou seja, pelo menos um dos botões esteja pressionado).
 
 O ESP32 lê os sensores e aciona o relé da bomba de irrigação conforme a lógica definida no código. O circuito é montado e simulado na plataforma Wokwi.com, utilizando componentes disponíveis para simulação. Toda a lógica de funcionamento está documentada neste README, incluindo imagem do circuito.
+
+---
+
+## ℹ️ Sobre o Sensor LDR
+
+O **LDR (Light Dependent Resistor)**, ou fotoresistor, é um sensor que varia sua resistência elétrica conforme a intensidade da luz incidente. No contexto deste projeto, o LDR está conectado a uma entrada analógica do ESP32 e permite simular a leitura de luminosidade do ambiente.
+
+- **Como funciona:** Quanto maior a intensidade de luz sobre o LDR, menor sua resistência e maior o valor lido pelo pino analógico do ESP32. Em ambientes escuros, a resistência aumenta e o valor lido diminui.
+- **Aplicação no projeto:** O valor analógico do LDR pode ser utilizado para simular condições ambientais, como luminosidade do solo, e pode ser adaptado para representar outros parâmetros, caso necessário.
+
+No circuito simulado, o LDR está ligado ao pino 34 do ESP32, conforme o diagrama apresentado.
 
 ## 📁 Estrutura de pastas
 
