@@ -35,13 +35,18 @@ void loop() {
   );
 
   // Irrigation logic:
-  // If humidity < 40% AND (phosphorus OR potassium present) → irrigate
-  if (humidity < 40.0 && (hasP || hasK)) {
+  // If humidity < 40% AND (phosphorus OR potassium present) AND LDR (pH) in valid range → irrigate
+  // Example: LDR value between 1000 and 3000 (adjust as needed for your simulation)
+  bool ldrValid = (ldrValue > 1000 && ldrValue < 3000);
+
+  if (humidity < 40.0 && (hasP || hasK) && ldrValid) {
     digitalWrite(RELAY_PIN, HIGH);
     digitalWrite(LED_PIN, HIGH);
+    Serial.println("IRRIGANDO: Condições atendidas (umidade < 40%, P ou K presente, pH válido)");
   } else {
     digitalWrite(RELAY_PIN, LOW);
     digitalWrite(LED_PIN, LOW);
+    Serial.println("NÃO IRRIGANDO: Condições não atendidas");
   }
 
   delay(2000);  // Wait 2 seconds between readings

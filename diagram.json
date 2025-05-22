@@ -25,17 +25,17 @@
       "attrs": { "label": "K" }
     },
     {
-      "type": "wokwi-ldr-sensor",
+      "type": "wokwi-photoresistor-sensor",
       "id": "ldr",
-      "top": -80,
-      "left": 140,
+      "top": 185.6,
+      "left": -210.4,
       "attrs": {}
     },
     {
       "type": "wokwi-dht22",
       "id": "dht",
-      "top": -80,
-      "left": 200,
+      "top": -134.1,
+      "left": 138.6,
       "attrs": {}
     },
     {
@@ -60,14 +60,14 @@
     ["btnP:2.r", "esp:18", "#0000FF", []],
     ["btnK:1.l", "esp:GND.1", "#000000", ["v-28.8", "h119.81"]],
     ["btnK:2.r", "esp:5", "#00FF00", ["h182.6", "v86.6"]],
-    ["ldr:GND", "esp:GND.1", "#000000", []],
-    ["ldr:VCC", "esp:3V3", "#FF0000", []],
-    ["ldr:AO", "esp:34", "#FFA500", []],
+    ["ldr:GND", "esp:GND.1", "#000000", ["h115.2", "v-67.6"]],
+    ["ldr:VCC", "esp:3V3", "#FF0000", ["h105.6", "v-163.2", "h33.41"]],
+    ["ldr:AO", "esp:34", "#FFA500", ["h86.4", "v-173.5"]],
     ["dht:GND", "esp:GND.1", "#000000", ["v118.7", "h-239.19"]],
     ["dht:VCC", "esp:3V3", "#FF0000", []],
     ["dht:SDA", "esp:15", "#800080", ["v22.7", "h-123.74"]],
     ["relay:GND", "esp:GND.1", "#000000", []],
-    ["relay:VCC", "esp:3V3", "#FF0000", ["h-56", "v-3", "h-139.39"]],
+    ["relay:VCC", "esp:3V3", "#FF0000", ["h-56", "v-3", "h-116.8", "v-64.2"]],
     ["relay:IN", "esp:4", "#FFA500", ["v25.6", "h-99.24"]],
     ["led:C", "esp:GND.1", "#000000", ["v9.6", "h101.01"]],
     ["led:A", "esp:19", "#FF0000", ["v19.2", "h187.16"]]
