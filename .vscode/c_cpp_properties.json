@@ -9,6 +9,7 @@
             "name": "PlatformIO",
             "includePath": [
                 "/home/krs/Desktop/workspace/fiap/farmtech-fase3-entrega1/src",
+                "/home/krs/Desktop/workspace/fiap/farmtech-fase3-entrega1/.pio/libdeps/esp32/DHT sensor library for ESPx",
                 "/home/krs/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                 "/home/krs/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
                 "/home/krs/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/esp_additions/freertos",
@@ -244,6 +245,7 @@
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
                     "/home/krs/Desktop/workspace/fiap/farmtech-fase3-entrega1/src",
+                    "/home/krs/Desktop/workspace/fiap/farmtech-fase3-entrega1/.pio/libdeps/esp32/DHT sensor library for ESPx",
                     "/home/krs/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                     "/home/krs/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
                     "/home/krs/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/esp_additions/freertos",

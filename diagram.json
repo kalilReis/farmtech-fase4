@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "author": "Kalil Reis de Sisto",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnP",
+      "top": -80.2,
+      "left": -115.2,
+      "attrs": { "label": "P" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnK",
+      "top": -3.4,
+      "left": -115.2,
+      "attrs": { "label": "K" }
+    },
+    {
+      "type": "wokwi-ldr-sensor",
+      "id": "ldr",
+      "top": -80,
+      "left": 140,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht",
+      "top": -80,
+      "left": 200,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay",
+      "top": 77,
+      "left": 201.6,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led",
+      "top": 82.8,
+      "left": -111.4,
+      "attrs": {}
+    }
+  ],
+  "connections": [
+    ["esp:TX", "$serialMonitor:RX", "#808080", []],
+    ["esp:RX", "$serialMonitor:TX", "#808080", []],
+    ["btnP:1.l", "esp:GND.1", "#000000", ["v-19.2", "h119.81"]],
+    ["btnP:2.r", "esp:18", "#0000FF", []],
+    ["btnK:1.l", "esp:GND.1", "#000000", ["v-28.8", "h119.81"]],
+    ["btnK:2.r", "esp:5", "#00FF00", ["h182.6", "v86.6"]],
+    ["ldr:GND", "esp:GND.1", "#000000", []],
+    ["ldr:VCC", "esp:3V3", "#FF0000", []],
+    ["ldr:AO", "esp:34", "#FFA500", []],
+    ["dht:GND", "esp:GND.1", "#000000", ["v118.7", "h-239.19"]],
+    ["dht:VCC", "esp:3V3", "#FF0000", []],
+    ["dht:SDA", "esp:15", "#800080", ["v22.7", "h-123.74"]],
+    ["relay:GND", "esp:GND.1", "#000000", []],
+    ["relay:VCC", "esp:3V3", "#FF0000", ["h-56", "v-3", "h-139.39"]],
+    ["relay:IN", "esp:4", "#FFA500", ["v25.6", "h-99.24"]],
+    ["led:C", "esp:GND.1", "#000000", ["v9.6", "h101.01"]],
+    ["led:A", "esp:19", "#FF0000", ["v19.2", "h187.16"]]
+  ],
+  "dependencies": {}
+}
