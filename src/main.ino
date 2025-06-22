@@ -8,7 +8,10 @@
 #define K_PIN     5    // Potassium button
 #define LDR_PIN   34   // LDR analog input (pH simulation)
 
+#include <LiquidCrystal_I2C.h>
+
 DHTesp dht;
+LiquidCrystal_I2C lcd(0x27, 16, 2); // LCD I2C address 0x27, 16 columns, 2 rows
 
 void setup() {
   Serial.begin(115200);
@@ -19,6 +22,14 @@ void setup() {
   pinMode(P_PIN, INPUT_PULLUP);
   pinMode(K_PIN, INPUT_PULLUP);
   pinMode(LDR_PIN, INPUT);
+
+  lcd.init();
+  lcd.backlight();
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("FarmTech Fase 4");
+  delay(2000);
+  lcd.clear();
 }
 
 void loop() {
@@ -43,11 +54,24 @@ void loop() {
     digitalWrite(RELAY_PIN, HIGH);
     digitalWrite(LED_PIN, HIGH);
     Serial.println("IRRIGANDO: Condições atendidas (umidade < 40%, P ou K presente, pH válido)");
+    lcd.setCursor(0, 0);
+    lcd.print("Irrigando...     ");
   } else {
     digitalWrite(RELAY_PIN, LOW);
     digitalWrite(LED_PIN, LOW);
     Serial.println("NÃO IRRIGANDO: Condições não atendidas");
+    lcd.setCursor(0, 0);
+    lcd.print("Nao irrigando   ");
   }
+
+  // Display sensor values on LCD
+  lcd.setCursor(0, 1);
+  lcd.print("U:");
+  lcd.print(humidity, 1);
+  lcd.print("% P:");
+  lcd.print(hasP ? "Y" : "N");
+  lcd.print(" K:");
+  lcd.print(hasK ? "Y" : "N");
 
   delay(2000);  // Wait 2 seconds between readings
 }
