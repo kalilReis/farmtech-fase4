@@ -33,11 +33,15 @@ void setup() {
 }
 
 void loop() {
-  // Read sensors
+    // Read sensors
+  // Optimization: Use 'float' for humidity as it requires decimal precision.
+  // Use 'uint16_t' for ldrValue since analogRead returns 0-4095 on ESP32 (12-bit ADC),
+  // which fits in 16 bits, saving memory compared to 'int' (usually 32-bit on ESP32).
+  // Use 'bool' for hasP and hasK as they represent binary states.
   float humidity = dht.getHumidity();
-  int   ldrValue = analogRead(LDR_PIN);
-  bool  hasP     = digitalRead(P_PIN) == LOW;  // pressed = presence
-  bool  hasK     = digitalRead(K_PIN) == LOW;
+  uint16_t ldrValue = analogRead(LDR_PIN);
+  bool hasP = digitalRead(P_PIN) == LOW;  // pressed = presence
+  bool hasK = digitalRead(K_PIN) == LOW;
 
   // Print readings
   Serial.printf(
