@@ -6,7 +6,7 @@
 #define LED_PIN   19   // Status LED
 #define RELAY_PIN 4    // Relay input
 #define LDR_PIN   34   // LDR analog input
-#define SOIL_SENSOR_PIN 35 // Soil sensor analog input (matches Wokwi diagram)
+#define SOIL_SENSOR_PIN 32 // Soil sensor analog input (matches Wokwi diagram)
 
 DHTesp dht;
 LiquidCrystal_I2C lcd(0x27, 16, 2); // LCD I2C address 0x27, 16 columns, 2 rows
@@ -51,7 +51,7 @@ void loop() {
 
   // Irrigation logic:
   bool ldrValid = (ldrValue > 1000 && ldrValue < 3000);
-  bool soilMoistureValid = (soilMoisture < 3000); // Example threshold, adjust as needed
+  bool soilMoistureValid = (soilMoisture < 2000); // Example threshold, adjust as needed
 
   if (humidity < 40.0 && soilMoistureValid && (strcmp(daylightStatus, "Morning") == 0 || strcmp(daylightStatus, "Night") == 0)) {
     digitalWrite(RELAY_PIN, HIGH);
