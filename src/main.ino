@@ -40,19 +40,30 @@ void loop() {
   bool hasP = digitalRead(P_PIN) == LOW;  // pressed = presence
   bool hasK = digitalRead(K_PIN) == LOW;
 
+  // Determine daylight status based on LDR value
+  const char* daylightStatus;
+  if (ldrValue > 3000) {
+    daylightStatus = "Night";
+  } else if (ldrValue > 2000) {
+    daylightStatus = "Morning";
+  } else {
+    daylightStatus = "Noon";
+  }
+
   // Print readings
   Serial.printf(
-    "Umid: %.1f%% | pH(sim): %d | SoilMoist: %d | P: %d | K: %d\n",
-    humidity, ldrValue, soilMoisture, hasP, hasK
+    "Umid: %.1f%% | LDR: %d (%s) | SoilMoist: %d | P: %d | K: %d\n",
+    humidity, ldrValue, daylightStatus, soilMoisture, hasP, hasK
   );
 
   // Irrigation logic:
   bool ldrValid = (ldrValue > 1000 && ldrValue < 3000);
+  bool soilMoistureValid = (soilMoisture < 2000); // Example threshold, adjust as needed
 
-  if (humidity < 40.0 && (hasP || hasK) && ldrValid) {
+  if (humidity < 40.0 && soilMoistureValid && (strcmp(daylightStatus, "Morning") == 0 || strcmp(daylightStatus, "Night") == 0)) {
     digitalWrite(RELAY_PIN, HIGH);
     digitalWrite(LED_PIN, HIGH);
-    Serial.println("IRRIGANDO: Condições atendidas (umidade < 40%, P ou K presente, pH válido)");
+    Serial.println("IRRIGANDO: Condições atendidas (umidade < 40%, solo seco, manhã ou noite)");
     lcd.setCursor(0, 0);
     lcd.print("Irrigando...     ");
   } else {
@@ -67,21 +78,28 @@ void loop() {
   lcd.setCursor(0, 1);
   lcd.print("U:");
   lcd.print(humidity, 1);
-  lcd.print("% P:");
-  lcd.print(hasP ? "Y" : "N");
-  lcd.print(" K:");
-  lcd.print(hasK ? "Y" : "N");
 
   delay(2000); // Keep status visible for 2 seconds
 
   lcd.setCursor(0, 1);
   lcd.print("                "); // Clear line
 
+  lcd.setCursor(0, 1);
+  lcd.print(daylightStatus);
+
   delay(1000); // Delay before showing soil moisture
 
   lcd.setCursor(0, 1);
   lcd.print("Soil:");
   lcd.print(soilMoisture);
+
+  delay(1000); // Delay before showing LDR
+
+  lcd.setCursor(0, 1);
+  lcd.print("    "); // Clear part of line
+  lcd.setCursor(0, 1);
+  lcd.print("LDR:");
+  lcd.print(ldrValue);
 
   delay(2000);  // Wait 2 seconds between readings
 }
