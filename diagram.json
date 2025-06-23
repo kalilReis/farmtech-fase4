@@ -11,20 +11,6 @@
       "attrs": {}
     },
     {
-      "type": "wokwi-pushbutton",
-      "id": "btnP",
-      "top": -80.2,
-      "left": -115.2,
-      "attrs": { "label": "P" }
-    },
-    {
-      "type": "wokwi-pushbutton",
-      "id": "btnK",
-      "top": -3.4,
-      "left": -115.2,
-      "attrs": { "label": "K" }
-    },
-    {
       "type": "wokwi-photoresistor-sensor",
       "id": "ldr",
       "top": 185.6,
@@ -48,8 +34,9 @@
     {
       "type": "wokwi-led",
       "id": "led",
-      "top": 82.8,
-      "left": -111.4,
+      "top": 124,
+      "left": -113.8,
+      "rotate": 270,
       "attrs": {}
     },
     {
@@ -70,26 +57,22 @@
   "connections": [
     ["esp:TX", "$serialMonitor:RX", "#808080", []],
     ["esp:RX", "$serialMonitor:TX", "#808080", []],
-    ["btnP:1.l", "esp:GND.1", "#000000", ["v-19.2", "h119.81"]],
-    ["btnP:2.r", "esp:18", "#0000FF", []],
-    ["btnK:1.l", "esp:GND.1", "#000000", ["v-28.8", "h119.81"]],
-    ["btnK:2.r", "esp:5", "#00FF00", ["h182.6", "v86.6"]],
-    ["ldr:GND", "esp:GND.1", "#000000", ["h115.2", "v-67.6"]],
+    ["ldr:GND", "esp:GND.1", "#000000", ["h9.6", "v-58"]],
     ["ldr:VCC", "esp:3V3", "#FF0000", ["h105.6", "v-163.2", "h33.41"]],
     ["ldr:AO", "esp:34", "#FFA500", ["h86.4", "v-173.5"]],
     ["dht:GND", "esp:GND.1", "#000000", ["v118.7", "h-239.19"]],
-    ["dht:VCC", "esp:3V3", "#FF0000", []],
-    ["dht:SDA", "esp:15", "#800080", ["v22.7", "h-123.74"]],
+    ["dht:VCC", "esp:3V3", "#FF0000", ["h-144", "v48"]],
+    ["dht:SDA", "esp:15", "#800080", ["v22.7", "h-28.7", "v169.3"]],
     ["relay:GND", "esp:GND.1", "#000000", []],
     ["relay:VCC", "esp:3V3", "#FF0000", ["h-56", "v-3", "h-116.8", "v-64.2"]],
     ["relay:IN", "esp:4", "#FFA500", ["v25.6", "h-99.24"]],
-    ["led:C", "esp:GND.1", "#000000", ["v9.6", "h101.01"]],
-    ["led:A", "esp:19", "#FF0000", ["v19.2", "h187.16"]],
+    ["led:C", "esp:GND.1", "#000000", ["v-0.4", "h81.41"]],
+    ["led:A", "esp:19", "#FF0000", ["h96", "v-48"]],
     ["lcd1:SDA", "esp:21", "#0000FF", ["v278.6", "h340.76"]],
     ["lcd1:SCL", "esp:22", "#0000FF", ["v249.9", "h340.76"]],
     ["lcd1:GND", "esp:GND.1", "#000000", ["v355.2", "h244.61"]],
     ["lcd1:VCC", "esp:3V3", "#FF0000", ["v249.7", "h244.61"]],
-    ["soilSensor:GND", "esp:GND.1", "#000000", ["h-201.6", "v-115.2"]],
+    ["soilSensor:GND", "esp:GND.2", "#000000", ["h-76.8", "v-240"]],
     ["soilSensor:VCC", "esp:3V3", "magenta", ["v19.2", "h-240.8", "v-259.2"]],
     ["soilSensor:SIG", "esp:34", "green", ["v9.6", "h-221.2", "v-211.2"]]
   ],

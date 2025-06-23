@@ -5,10 +5,8 @@
 #define DHT_PIN   15   // DHT22 data pin
 #define LED_PIN   19   // Status LED
 #define RELAY_PIN 4    // Relay input
-#define P_PIN     18   // Phosphorus button
-#define K_PIN     5    // Potassium button
-#define LDR_PIN   34   // LDR analog input (pH simulation)
-#define SOIL_SENSOR_PIN 34 // Soil sensor analog input (matches Wokwi diagram)
+#define LDR_PIN   34   // LDR analog input
+#define SOIL_SENSOR_PIN 35 // Soil sensor analog input (matches Wokwi diagram)
 
 DHTesp dht;
 LiquidCrystal_I2C lcd(0x27, 16, 2); // LCD I2C address 0x27, 16 columns, 2 rows
@@ -19,8 +17,6 @@ void setup() {
 
   pinMode(LED_PIN, OUTPUT);
   pinMode(RELAY_PIN, OUTPUT);
-  pinMode(P_PIN, INPUT_PULLUP);
-  pinMode(K_PIN, INPUT_PULLUP);
   pinMode(LDR_PIN, INPUT);
 
   lcd.init();
@@ -37,9 +33,6 @@ void loop() {
   float humidity = dht.getHumidity();
   uint16_t ldrValue = analogRead(LDR_PIN);
   uint16_t soilMoisture = analogRead(SOIL_SENSOR_PIN);
-  bool hasP = digitalRead(P_PIN) == LOW;  // pressed = presence
-  bool hasK = digitalRead(K_PIN) == LOW;
-
   // Determine daylight status based on LDR value
   const char* daylightStatus;
   if (ldrValue > 3000) {
@@ -52,13 +45,13 @@ void loop() {
 
   // Print readings
   Serial.printf(
-    "Umid: %.1f%% | LDR: %d (%s) | SoilMoist: %d | P: %d | K: %d\n",
-    humidity, ldrValue, daylightStatus, soilMoisture, hasP, hasK
+    "Umid: %.1f%% | LDR: %d (%s) | SoilMoist: %d\n",
+    humidity, ldrValue, daylightStatus, soilMoisture
   );
 
   // Irrigation logic:
   bool ldrValid = (ldrValue > 1000 && ldrValue < 3000);
-  bool soilMoistureValid = (soilMoisture < 2000); // Example threshold, adjust as needed
+  bool soilMoistureValid = (soilMoisture < 3000); // Example threshold, adjust as needed
 
   if (humidity < 40.0 && soilMoistureValid && (strcmp(daylightStatus, "Morning") == 0 || strcmp(daylightStatus, "Night") == 0)) {
     digitalWrite(RELAY_PIN, HIGH);
@@ -76,30 +69,27 @@ void loop() {
 
   // Display sensor values on LCD
   lcd.setCursor(0, 1);
-  lcd.print("U:");
+  lcd.print("Humidity:");
   lcd.print(humidity, 1);
 
-  delay(2000); // Keep status visible for 2 seconds
+  delay(1500); // Keep status visible for 2 seconds
 
   lcd.setCursor(0, 1);
   lcd.print("                "); // Clear line
 
   lcd.setCursor(0, 1);
+  lcd.print("LDR:");
   lcd.print(daylightStatus);
 
-  delay(1000); // Delay before showing soil moisture
+  delay(1500); // Delay before showing soil moisture
 
   lcd.setCursor(0, 1);
   lcd.print("Soil:");
   lcd.print(soilMoisture);
 
-  delay(1000); // Delay before showing LDR
+  delay(1500); // Delay before showing LDR
 
   lcd.setCursor(0, 1);
   lcd.print("    "); // Clear part of line
-  lcd.setCursor(0, 1);
-  lcd.print("LDR:");
-  lcd.print(ldrValue);
-
-  delay(2000);  // Wait 2 seconds between readings
+  
 }
