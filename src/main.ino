@@ -1,4 +1,5 @@
 #include <DHTesp.h>
+#include <LiquidCrystal_I2C.h>
 
 // Pin definitions
 #define DHT_PIN   15   // DHT22 data pin
@@ -7,8 +8,7 @@
 #define P_PIN     18   // Phosphorus button
 #define K_PIN     5    // Potassium button
 #define LDR_PIN   34   // LDR analog input (pH simulation)
-
-#include <LiquidCrystal_I2C.h>
+#define SOIL_SENSOR_PIN 34 // Soil sensor analog input (matches Wokwi diagram)
 
 DHTesp dht;
 LiquidCrystal_I2C lcd(0x27, 16, 2); // LCD I2C address 0x27, 16 columns, 2 rows
@@ -33,25 +33,20 @@ void setup() {
 }
 
 void loop() {
-    // Read sensors
-  // Optimization: Use 'float' for humidity as it requires decimal precision.
-  // Use 'uint16_t' for ldrValue since analogRead returns 0-4095 on ESP32 (12-bit ADC),
-  // which fits in 16 bits, saving memory compared to 'int' (usually 32-bit on ESP32).
-  // Use 'bool' for hasP and hasK as they represent binary states.
+  // Read sensors
   float humidity = dht.getHumidity();
   uint16_t ldrValue = analogRead(LDR_PIN);
+  uint16_t soilMoisture = analogRead(SOIL_SENSOR_PIN);
   bool hasP = digitalRead(P_PIN) == LOW;  // pressed = presence
   bool hasK = digitalRead(K_PIN) == LOW;
 
   // Print readings
   Serial.printf(
-    "Umid: %.1f%% | pH(sim): %d | P: %d | K: %d\n",
-    humidity, ldrValue, hasP, hasK
+    "Umid: %.1f%% | pH(sim): %d | SoilMoist: %d | P: %d | K: %d\n",
+    humidity, ldrValue, soilMoisture, hasP, hasK
   );
 
   // Irrigation logic:
-  // If humidity < 40% AND (phosphorus OR potassium present) AND LDR (pH) in valid range → irrigate
-  // Example: LDR value between 1000 and 3000 (adjust as needed for your simulation)
   bool ldrValid = (ldrValue > 1000 && ldrValue < 3000);
 
   if (humidity < 40.0 && (hasP || hasK) && ldrValid) {
@@ -76,6 +71,17 @@ void loop() {
   lcd.print(hasP ? "Y" : "N");
   lcd.print(" K:");
   lcd.print(hasK ? "Y" : "N");
+
+  delay(2000); // Keep status visible for 2 seconds
+
+  lcd.setCursor(0, 1);
+  lcd.print("                "); // Clear line
+
+  delay(1000); // Delay before showing soil moisture
+
+  lcd.setCursor(0, 1);
+  lcd.print("Soil:");
+  lcd.print(soilMoisture);
 
   delay(2000);  // Wait 2 seconds between readings
 }

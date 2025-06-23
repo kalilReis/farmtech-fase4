@@ -55,9 +55,16 @@
     {
       "type": "wokwi-lcd1602",
       "id": "lcd1",
-      "top": -233.6,
+      "top": -273.6,
       "left": -244,
       "attrs": { "pins": "i2c" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "soilSensor",
+      "top": 200.3,
+      "left": 172.6,
+      "attrs": { "value": "512" }
     }
   ],
   "connections": [
@@ -81,7 +88,10 @@
     ["lcd1:SDA", "esp:21", "#0000FF", ["v278.6", "h340.76"]],
     ["lcd1:SCL", "esp:22", "#0000FF", ["v249.9", "h340.76"]],
     ["lcd1:GND", "esp:GND.1", "#000000", ["v355.2", "h244.61"]],
-    ["lcd1:VCC", "esp:3V3", "#FF0000", ["v249.7", "h244.61"]]
+    ["lcd1:VCC", "esp:3V3", "#FF0000", ["v249.7", "h244.61"]],
+    ["soilSensor:GND", "esp:GND.1", "#000000", ["h-201.6", "v-115.2"]],
+    ["soilSensor:VCC", "esp:3V3", "magenta", ["v19.2", "h-240.8", "v-259.2"]],
+    ["soilSensor:SIG", "esp:34", "green", ["v9.6", "h-221.2", "v-211.2"]]
   ],
   "dependencies": {}
 }
