@@ -35,18 +35,16 @@
 Este projeto consiste em um sistema embarcado de simulação para monitoramento de sensores agrícolas e controle de irrigação, utilizando ESP32, PlatformIO e a plataforma Wokwi.
 
 <p align="center">
-  <img src="assets/circuit.png" alt="Diagrama do circuito" width="60%">
+  <img src="assets/circuit_2.gif" alt="Diagrama do circuito" width="60%">
 </p>
 
 O sistema simula:
 
-- **Sensor de Fósforo (P):** botão físico (pressionado = presença, solto = ausência)
-- **Sensor de Potássio (K):** botão físico (mesma lógica do fósforo)
 - **Sensor de luminosidade (LDR):** sensor LDR (resistor dependente de luz, fornece valor analógico conforme a intensidade luminosa)
-- **Sensor de umidade do solo:** DHT22 (valor analógico em tempo real)
+- **Sensor de umidade do solo:** sensor de umidade do solo analógico (valor analógico em tempo real)
 - **Bomba de irrigação:** relé controlado pelo ESP32, com status indicado por LED
 
-**Lógica de irrigação:** Para que a água seja liberada (LED aceso), é necessário que a umidade do solo esteja abaixo de 40% e que exista fósforo ou potássio detectado (ou seja, pelo menos um dos botões esteja pressionado).
+**Lógica de irrigação:** Para que a água seja liberada (LED aceso), é necessário que a umidade do solo esteja abaixo de 40% e que seja manhã ou noite, que são os melhores horários para irrigação.
 
 O ESP32 lê os sensores e aciona o relé da bomba de irrigação conforme a lógica definida no código. O circuito é montado e simulado na plataforma Wokwi.com, utilizando componentes disponíveis para simulação. Toda a lógica de funcionamento está documentada neste README, incluindo imagem do circuito.
 
@@ -86,8 +84,8 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 1.  **Clone o repositório:**
 
     ```bash
-    git clone https://github.com/kalilReis/farmtech-fase3-entrega1
-    cd farmtech-fase3-entrega1
+    git clone https://github.com/kalilReis/farmtech-fase4
+    cd farmtech-fase4
     ```
 
 2.  **Abra o projeto no VSCode com PlatformIO instalado.**
@@ -113,3 +111,5 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
       ```bash
       pio device monitor
       ```
+
+**Nota:** O sensor de fósforo (P) e potássio (K) foram removidos do projeto. O sensor de umidade do solo foi atualizado para um sensor analógico, e a lógica de irrigação agora considera os melhores horários para irrigação, que são manhã e noite.
